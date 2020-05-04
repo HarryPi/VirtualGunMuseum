@@ -1,0 +1,17 @@
+#the_element {
+border: none;  // remove the default 1px border
+position: relative;
+}
+
+#toggler {
+    position: absolute;
+    float: left;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    width: 10em;
+    height: 2em;
+    border: none;
+    background-color: #202021;
+    color: #ccc;
+}
