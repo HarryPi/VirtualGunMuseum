@@ -84,7 +84,6 @@
 
                 <!--Grid row-->
                 <div class="row text-left">
-                    <!--Grid column-->
                     <div class="col-lg-6 col-md-12">
                         <!--Image-->
                         <div class="view overlay rounded z-depth-1-half mb-3">
@@ -104,7 +103,6 @@
                         </p>
                         <hr>
                     </div>
-                    <!--Grid column-->
                     <div class="col-lg-6 col-md-12">
                         <!--Image-->
                         <div class="view overlay rounded z-depth-1-half mb-3">
@@ -136,7 +134,44 @@
                         <!--/Featured news-->
                         <hr>
                     </div>
-                    <!--Grid column-->
+                    <div class="col-lg-6 col-md-12">
+                        <!--Image-->
+                        <div class="view overlay rounded z-depth-1-half mb-3">
+                            <img src="application/assets/images/scar_demo_pic.jpg" class="img-fluid" alt="Sample post image">
+                            <a>
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+                        <!--Excerpt-->
+                        <h3>
+                            <a>
+                                <strong>This is title of the news</strong>
+                            </a>
+                        </h3>
+                        <p> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
+                            placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+                        </p>
+                        <hr>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <!--Image-->
+                        <div class="view overlay rounded z-depth-1-half mb-3">
+                            <img src="application/assets/images/scar_demo_pic.jpg" class="img-fluid" alt="Sample post image">
+                            <a>
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+                        <!--Excerpt-->
+                        <h3>
+                            <a>
+                                <strong>This is title of the news</strong>
+                            </a>
+                        </h3>
+                        <p> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
+                            placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+                        </p>
+                        <hr>
+                    </div>
                 </div>
                 <!--Grid row-->
 
