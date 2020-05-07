@@ -1,0 +1,33 @@
+{
+  "name": "virtualgunmuseum",
+  "version": "1.0.0",
+  "description": "A virtual museum for guns",
+  "main": "index.php",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "bootswatch": "^4.4.1",
+    "jquery": "^3.5.0",
+    "ts-loader": "^7.0.2",
+    "typescript": "^3.8.3",
+    "x3dom": "^1.8.1"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.37",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  },
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarryPi/VirtualGunMuseum.git"
+  },
+  "author": "HarryPi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HarryPi/VirtualGunMuseum/issues"
+  },
+  "homepage": "https://github.com/HarryPi/VirtualGunMuseum#readme"
+}
