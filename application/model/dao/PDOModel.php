@@ -4,10 +4,10 @@
     use Exception;
 
     abstract class PDOModel {
-        protected PDO $pdoModel;
-        protected string $table;
+        protected $pdoModel;
+        protected $table;
 
-        public function __construct(string $table) {
+        public function __construct($table) {
             // Set up the database source name (DSN)
             $dsn = 'sqlite:'.DATABASE_PATH;
             $this->table = $table;

@@ -16,7 +16,7 @@
         public $load;
         public $model;
         // Create functions for the controller class
-        function __construct(ContainerInterface $container) // constructor of the class
+        function __construct($container) // constructor of the class
         {
             parent::__construct($container);
             $this->load = new Load();
@@ -25,7 +25,7 @@
         }
 
         // home page function
-        function home(Request $request, Response $response, $args) {
+        function home($request, $response, $args) {
             // We do not want to get data here
             // If we do this will slow the page load with no indication to the user instead
             // We load the page and then using JS we will call the api for data

@@ -1,9 +1,9 @@
 <?php namespace DTO;
 
     class GunDto extends Dto {
-        private int $id;
-        private string $name;
-        private string $shortDescription;
+        private $id;
+        private $name;
+        private $shortDescription;
 
         /**
          * GunDto constructor.
@@ -11,7 +11,7 @@
          * @param string $name
          * @param string $shortDescription
          */
-        public function __construct(int $id, string $name, string $shortDescription) {
+        public function __construct($id, $name, $shortDescription) {
             parent::__construct();
             $this->id = $id;
             $this->name = $name;

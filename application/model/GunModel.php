@@ -5,7 +5,7 @@
 
 
 class GunModel extends PDOModel {
-    public function __construct(string $table = 'guns') {
+    public function __construct($table = 'guns') {
         parent::__construct($table);
     }
 }
