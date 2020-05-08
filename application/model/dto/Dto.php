@@ -1,4 +1,4 @@
-<?php
+<?php namespace DTO;
 
 
     abstract class Dto {

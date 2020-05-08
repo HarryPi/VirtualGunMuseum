@@ -1,4 +1,4 @@
-<?php
+<?php namespace DTO;
 
     class GunDto extends Dto {
         private int $id;

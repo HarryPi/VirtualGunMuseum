@@ -8,6 +8,12 @@ $(bindFunctions);
 
 
 function bindFunctions() {
+    fetch('http://localhost/home/getAllGuns')
+        .then(response => response.text())
+        .then(data => {
+          //  $('#mainContent').empty().html(data);
+        });
+
     const museum: Museum = new Museum('index');
 
     $('#toggler').on('click', () => {

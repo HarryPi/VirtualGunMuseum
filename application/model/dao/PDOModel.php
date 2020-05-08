@@ -1,4 +1,7 @@
-<?php
+<?php namespace DaoPDO;
+    use \PDO;
+    use PDOException;
+    use Exception;
 
     abstract class PDOModel {
         protected PDO $pdoModel;
@@ -6,22 +9,26 @@
 
         public function __construct(string $table) {
             // Set up the database source name (DSN)
-            $dsn = 'sqlite:./../db/gundatabase.db';
+            $dsn = 'sqlite:'.DATABASE_PATH;
             $this->table = $table;
             // Then create a connection to a database with the PDO() function
             try {
                 // Change connection string for different databases, currently using SQLite
-                $this->pdoModel = new PDO($dsn, 'user', 'password', [
+                $this->pdoModel = new PDO($dsn, '', '', [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, //turn on errors in the form of exceptions
                     PDO::ATTR_EMULATE_PREPARES => false, // turn off emulation mode for "real" prepared statements
                 ]);
             } catch (PDOEXception $e) {
                 // Generate an error message if the connection fails
                 // todo: Handle this later by returning error to JS
-                print new Exception($e->getMessage());
+                throw $e;
             }
         }
 
+        /**
+         * @return array
+         * @throws PDOException
+         */
         public function getAll() {
             return $this->pdoModel->query('SELECT * FROM '.$this->table)->fetchAll();
         }
