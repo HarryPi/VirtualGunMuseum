@@ -5,9 +5,6 @@
     use mvc\Load;
     use Models\GunModel;
     use PDOException;
-    use Psr\Container\ContainerInterface;
-    use Slim\Psr7\Request;
-    use Slim\Psr7\Response;
 
 // Create the controller class for the MVC design pattern
     class HomeController extends BaseController {
@@ -16,21 +13,20 @@
         public $load;
         public $model;
         // Create functions for the controller class
-        function __construct($container) // constructor of the class
+        function __construct() // constructor of the class
         {
-            parent::__construct($container);
+            parent::__construct();
             $this->load = new Load();
             $this->model = new GunModel();
             // determine what page you are on
         }
 
         // home page function
-        function home($request, $response, $args) {
+        function home() {
             // We do not want to get data here
             // If we do this will slow the page load with no indication to the user instead
             // We load the page and then using JS we will call the api for data
             $this->load->view('home');
-            return $response;
         }
 
         function apiGetAllGuns() {
