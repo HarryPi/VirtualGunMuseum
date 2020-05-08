@@ -64,8 +64,8 @@
                     <p>
                         <strong>Scroll further down to see our selection individually or click here to go to our showcase!</strong>
                     </p>
-                    <a target="_blank" href="https://mdbootstrap.com/education/bootstrap/" class="btn btn-outline-white btn-lg">Start
-                        free tutorial
+                    <a target="_blank" href="#" class="btn btn-outline-white btn-lg">
+                        Go to our showcase!
                         <i class="fas fa-graduation-cap ml-2"></i>
                     </a>
 
@@ -80,14 +80,18 @@
             <section class="wow fadeIn">
 
                 <!--Section heading-->
-                <h2 class="h1 text-center my-5 font-weight-bold">Our collection</h2>
-
+              <div class="my-5 row text-center">
+                  <h2 class="col-sm-12 h1 font-weight-bold">Our collection</h2>
+                  <h6 class="col-sm-12 h6 font-weight-bold">
+                      <strong>Gallery with photo-realistic materials</strong>
+                  </h6>
+              </div>
                 <!--Grid row-->
                 <div class="row text-left">
                     <div class="col-lg-6 col-md-12">
                         <!--Image-->
                         <div class="view overlay rounded z-depth-1-half mb-3">
-                            <img src="application/assets/images/scar_demo_pic.jpg" class="img-fluid" alt="Sample post image">
+                            <img src="application/assets/images/g36_photorealistic_image.jpg" class="img-fluid" alt="Sample post image">
                             <a>
                                 <div class="mask rgba-white-slight"></div>
                             </a>
@@ -106,22 +110,10 @@
                     <div class="col-lg-6 col-md-12">
                         <!--Image-->
                         <div class="view overlay rounded z-depth-1-half mb-3">
-                            <img src="application/assets/images/desertEaglePhotorealistic.jpg" class="img-fluid" alt="Sample post image">
+                            <img src="application/assets/images/desertEaglePhotorealistic_blackcloth.jpg" class="img-fluid" alt="Sample post image">
                             <a>
                                 <div class="mask rgba-white-slight"></div>
                             </a>
-                        </div>
-                        <div class="news-data">
-                            <a href="" class="light-blue-text">
-                                <h6>
-                                    <i class="fas fa-plane"></i>
-                                    <strong> Travels</strong>
-                                </h6>
-                            </a>
-                            <p>
-                                <strong>
-                                    <i class="far fa-clock"></i> 20/08/2018</strong>
-                            </p>
                         </div>
                         <h3>
                             <a>
@@ -137,7 +129,7 @@
                     <div class="col-lg-6 col-md-12">
                         <!--Image-->
                         <div class="view overlay rounded z-depth-1-half mb-3">
-                            <img src="application/assets/images/scar_demo_pic.jpg" class="img-fluid" alt="Sample post image">
+                            <img src="application/assets/images/revolter_photorealistic_black_cloth_side_view.jpg" class="img-fluid" alt="Sample post image">
                             <a>
                                 <div class="mask rgba-white-slight"></div>
                             </a>
@@ -156,7 +148,7 @@
                     <div class="col-lg-6 col-md-12">
                         <!--Image-->
                         <div class="view overlay rounded z-depth-1-half mb-3">
-                            <img src="application/assets/images/scar_demo_pic.jpg" class="img-fluid" alt="Sample post image">
+                            <img src="application/assets/images/scar_photorealistic.jpg" class="img-fluid" alt="Sample post image">
                             <a>
                                 <div class="mask rgba-white-slight"></div>
                             </a>
