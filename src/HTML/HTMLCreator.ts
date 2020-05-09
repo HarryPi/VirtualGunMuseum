@@ -2,10 +2,11 @@ import {ColumnModel} from "../BootstrapHelpers/Column.model";
 import $ from "jquery";
 
 export class HTMLCreator {
+    private static allInjected = [];
     private html: JQuery<HTMLElement>;
 
     constructor() {
-        this.html = $(`<div></div>`);
+        this.html = $(`<div class="auto-generated"></div>`);
     }
 
     /**
@@ -13,8 +14,7 @@ export class HTMLCreator {
      */
     createBootstrapRow(): HTMLCreator {
         const newEl = $('<div class="row"></div>');
-        newEl.appendTo(this.html);
-        console.log(this.html);
+        newEl.appendTo(this.html.attr('class', 'auto-generated'));
         return this;
     }
 
@@ -30,6 +30,12 @@ export class HTMLCreator {
         return this;
     }
 
+    /**
+     * Repeast a call at {@link createBootstrapColumn} for repeat times
+     * @param columnModel The column model for breakpoints
+     * @param extraClass Any aditional classes to apply
+     * @param repeat How many times to repeat
+     */
     createBootstrapIdenticalColumns(columnModel: ColumnModel[], extraClass?: string, repeat = 1): HTMLCreator {
         for (let i = 0; i < repeat; i++) {
             this.createBootstrapColumn(columnModel, extraClass);
@@ -37,11 +43,20 @@ export class HTMLCreator {
         return this;
     }
 
+    /**
+     * Injects an HTML Element at gird column indicated by the index param
+     * @param html Element to inject
+     * @param col Column index
+     */
     injectAtColumn(html: HTMLElement | JQuery, col: number): HTMLCreator {
         $(html).appendTo(this.html.find('div.col').get(col));
         return this;
     }
 
+    /**
+     * Injects the same HTML Element at all the grid columns
+     * @param html HTML Element to be injected
+     */
     injectAtAllColumns(html: HTMLElement | JQuery): HTMLCreator {
         $(html).appendTo(this.html.find('div.col'));
         return this;
@@ -56,6 +71,22 @@ export class HTMLCreator {
         this.asNewElement();
     }
 
+    /**
+     * Injects the content at location and flushes the HTML stream.
+     * Will also clear all content in passed element before injecting
+     * @param where Id of where to dump the HTML
+     */
+    injectCreatedConantAndClear(where: HTMLElement | JQuery): void {
+        $(where).empty();
+        this.injectCreatedContentAt(where);
+    }
+
+    /**
+     * Creates a hidden modal
+     * @param idForModal
+     * @param idForTitle
+     * @param idForContent
+     */
     createModal(idForModal: string, idForTitle?: string, idForContent?: string): HTMLCreator {
         $(`
         <div class="modal fade" id="${idForModal}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -77,8 +108,23 @@ export class HTMLCreator {
         return this;
     }
 
+    /**
+     * Discards the old inner HTML
+     * But does not clear it!
+     */
     asNewElement() {
         this.html = $(`<div></div>`);
         return this;
+    }
+
+    /**
+     * WARNING - Will clear ALL Created content
+     */
+    public static clearCreatedContent() {
+        $(document).find('.auto-generated')
+            .toArray()
+            .forEach((item: HTMLElement) => {
+                $(item).empty();
+            })
     }
 }

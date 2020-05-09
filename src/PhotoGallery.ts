@@ -2,6 +2,7 @@ import $ from 'jquery';
 import {GunModel} from "./models/DTO/gun.model";
 import {HTMLCreator} from "./HTML/HTMLCreator";
 import {ModalSection} from "./BootstrapHelpers/Constants";
+import {ItemCreator} from "./ItemViews/ItemCreator";
 
 export class PhotoGallery {
     private htmlCreator: HTMLCreator;
@@ -18,11 +19,11 @@ export class PhotoGallery {
 
     /**
      * Generates a photo gallery based on a json string of gun models
-     * @param jsonGunModels The json string that should contain the gun models
+     * @param guns
      * @param whereById The id of the location to place the gallery
      */
-    public generatePhotoGalleryHtml(jsonGunModels: string, whereById: string) {
-        const gunModels: GunModel[] = JSON.parse(jsonGunModels);
+    public generatePhotoGalleryHtml(guns: GunModel[], whereById: string) {
+        const gunModels: GunModel[] = guns;
         this.htmlCreator
             .asNewElement()
             .createBootstrapRow();
@@ -41,7 +42,13 @@ export class PhotoGallery {
             .injectCreatedContentAt($('#museumPhotoItems'));
 
         // Unfortunately we cant do this in the previous loop as the HTML has not been injected yet
-        gunModels.forEach(gun => this.setOnClickImagePopup(`#${gun.id}__${this.className}`))
+        // We use __ class name as the DB id will most likely alone not be unique across tables thus we might end up
+        // With multiple similar ids for different views instead we prefix __classname and __purpose to ensure uniqueness
+        // This convention allows us to later on strip down to the original id by getting the first occurrence of __
+        gunModels.forEach(gun => {
+            this.setOnClickImagePopup(`#${gun.id}__${this.className}`);
+            this.setOnLinkClickRedirect(`#${gun.id}__${this.className}__link`);
+        })
     }
 
     /**
@@ -60,9 +67,16 @@ export class PhotoGallery {
         <h5 class="card-title">${gunModel.name}</h5>
         <p class="card-subtitle">Click on the image to see it zoomed in!</p>
         <p class="card-text">${gunModel.shortDescription}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <button id="${gunModel.id}__${this.className}__link" class="btn btn-primary">Go somewhere</button>
     </div>
 </div>`)
+    }
+
+    private setOnLinkClickRedirect(id: string) {
+        $(id).on('click', () => {
+            const itemCreator = new ItemCreator();
+            itemCreator.createPageForItem(id.substr(0, id.indexOf('__'))); // Strip all class id seperators
+        });
     }
 
     private setOnClickImagePopup(id: string) {

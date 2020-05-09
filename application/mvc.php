@@ -26,7 +26,12 @@ $klein->respond('GET', $basePath . '/home', function () {
     $controller->home();
 });
 
-$klein->respond('GET', $basePath.'/home/getAllGuns', function (Request $request, Response $response, $service) {
+$klein->respond('GET', $basePath.'/home/guns', function (Request $request, Response $response, $service) {
+    $controller = new HomeController();
+    $response->json($controller->apiGetAllGuns());
+});
+
+$klein->respond('GET', $basePath.'/home/gun/', function (Request $request, Response $response, $service) {
     $controller = new HomeController();
     $response->json($controller->apiGetAllGuns());
 });

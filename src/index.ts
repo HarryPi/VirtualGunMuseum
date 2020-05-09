@@ -3,6 +3,7 @@ import {PhotoGallery} from "./PhotoGallery";
 import {ResponsePhp} from "./ResponseHelpers/ResponsePhp";
 import {HTMLCreator} from "./HTML/HTMLCreator";
 import {LoaderCreator, LoaderKind} from "./Loader/Loader";
+import {GunModel} from "./models/DTO/gun.model";
 
 declare var x3dom: any;
 
@@ -27,19 +28,21 @@ async function bindFunctions() {
 
 
     // When loading is done attempt to get gun models
-    const onDataLoaded = fetch('http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/home/getAllGuns', {
+    const onDataLoaded = fetch('http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/home/guns', {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         }
     });
 
-    const jsonData: ResponsePhp = new ResponsePhp(await onDataLoaded);
+    const response: ResponsePhp = new ResponsePhp(await onDataLoaded);
 
-    if (jsonData.ok) {
-        const data = await jsonData.fromPhpToJsonFormatString();
+    if (response.ok) {
+        const textData: ResponsePhp = await response.fromPhpToJsonFormatString();
+        const jsonData: GunModel[] = await textData.parseAsJson<GunModel[]>();
+
         $('#museumPhotoItems').empty();
-        gallery.generatePhotoGalleryHtml(data, 'museumPhotoItems');
+        gallery.generatePhotoGalleryHtml(jsonData, 'museumPhotoItems');
     }
 
 

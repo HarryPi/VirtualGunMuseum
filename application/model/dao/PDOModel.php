@@ -30,11 +30,15 @@
          * @throws PDOException
          */
         public function getAll($classType) {
-            return $this->pdoModel->query('SELECT * FROM '.$this->table)->fetchAll(PDO::FETCH_CLASS, $classType);
+            return $this->pdoModel->query(
+                'SELECT * FROM '.$this->table
+            )->fetchAll(PDO::FETCH_CLASS, $classType);
         }
 
         public function get($id, $classType) {
-            return $this->pdoModel->query('SELECT * FROM '.$this->table.' WHERE id ='.$id)->fetchAll()[0];
+            return $this->pdoModel->query(
+                'SELECT * FROM '.$this->table.' WHERE id ='.$id
+            )->fetchAll(PDO::FETCH_CLASS, $classType)[0];
         }
 
         /**
