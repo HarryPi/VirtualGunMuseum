@@ -62,7 +62,8 @@
                         <strong>Welcome to the Gun Museum!</strong>
                     </h1>
                     <p>
-                        <strong>Scroll further down to see our selection individually or click here to go to our showcase!</strong>
+                        <strong>Scroll further down to see our selection individually or click here to go to our
+                            showcase!</strong>
                     </p>
                     <a target="_blank" href="#" class="btn btn-outline-white btn-lg">
                         Go to our showcase!
@@ -76,111 +77,29 @@
 
             <hr class="my-5">
 
-            <!--Section: Magazine v.1-->
             <section class="wow fadeIn">
 
                 <!--Section heading-->
-              <div class="my-5 row text-center">
-                  <h2 class="col-sm-12 h1 font-weight-bold">Our collection</h2>
-                  <h6 class="col-sm-12 h6 font-weight-bold">
-                      <strong>Gallery with photo-realistic materials</strong>
-                  </h6>
-              </div>
-                <!--Grid row-->
-                <div class="row text-left">
-                    <div class="col-lg-6 col-md-12">
-                        <!--Image-->
-                        <div class="view overlay rounded z-depth-1-half mb-3">
-                            <img src="application/assets/images/g36_photorealistic_image.jpg" class="img-fluid" alt="Sample post image">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <!--Excerpt-->
-                        <h3>
-                            <a>
-                                <strong>This is title of the news</strong>
-                            </a>
-                        </h3>
-                        <p> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                            placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-                        </p>
-                        <hr>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <!--Image-->
-                        <div class="view overlay rounded z-depth-1-half mb-3">
-                            <img src="application/assets/images/desertEaglePhotorealistic_blackcloth.jpg" class="img-fluid" alt="Sample post image">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <h3>
-                            <a>
-                                <strong>This is title of the news</strong>
-                            </a>
-                        </h3>
-                        <p> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                            placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-                        </p>
-                        <!--/Featured news-->
-                        <hr>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <!--Image-->
-                        <div class="view overlay rounded z-depth-1-half mb-3">
-                            <img src="application/assets/images/revolter_photorealistic_black_cloth_side_view.jpg" class="img-fluid" alt="Sample post image">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <!--Excerpt-->
-                        <h3>
-                            <a>
-                                <strong>This is title of the news</strong>
-                            </a>
-                        </h3>
-                        <p> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                            placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-                        </p>
-                        <hr>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <!--Image-->
-                        <div class="view overlay rounded z-depth-1-half mb-3">
-                            <img src="application/assets/images/scar_photorealistic.jpg" class="img-fluid" alt="Sample post image">
-                            <a>
-                                <div class="mask rgba-white-slight"></div>
-                            </a>
-                        </div>
-                        <!--Excerpt-->
-                        <h3>
-                            <a>
-                                <strong>This is title of the news</strong>
-                            </a>
-                        </h3>
-                        <p> Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                            placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-                        </p>
-                        <hr>
-                    </div>
+                <div class="my-5 row text-center">
+                    <h2 class="col-sm-12 h1 font-weight-bold">Our collection</h2>
+                    <h6 class="col-sm-12 h6 font-weight-bold">
+                        <strong>Gallery with photo-realistic materials</strong>
+                    </h6>
                 </div>
+                <!--Grid row-->
+                <div id="museumPhotoItems"></div>
                 <!--Grid row-->
 
             </section>
-            <!--/Section: Magazine v.1-->
 
         </div>
     </div>
 </main>
 <!--Main layout-->
 
-<script src="./node_modules/jquery/dist/jquery.min.js"></script>
-<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./node_modules/x3dom/x3dom.js"></script>
-<script src="./dist/bundle.js"></script>
-<script type="text/javascript">
-
-</script>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="node_modules/x3dom/x3dom.js"></script>
+<script src="dist/bundle.js"></script>
 </body>
 </html>

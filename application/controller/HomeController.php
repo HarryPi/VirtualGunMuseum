@@ -16,7 +16,6 @@
         function __construct() // constructor of the class
         {
             parent::__construct();
-            $this->load = new Load();
             $this->model = new GunModel();
             // determine what page you are on
         }
@@ -26,16 +25,14 @@
             // We do not want to get data here
             // If we do this will slow the page load with no indication to the user instead
             // We load the page and then using JS we will call the api for data
+            $this->load = new Load();
             $this->load->view('home');
         }
 
         function apiGetAllGuns() {
             try {
-                $guns = $this->model->getAll();
-                http_response_code(200);
-                echo json_encode($guns);
+                return $this->model->getAll(GunModel::class);
             } catch (PDOException $exception) {
-                http_response_code(500);
                 echo json_encode('We failed to get your data please try again.');
             }
         }

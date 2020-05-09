@@ -29,11 +29,11 @@
          * @return array
          * @throws PDOException
          */
-        public function getAll() {
-            return $this->pdoModel->query('SELECT * FROM '.$this->table)->fetchAll();
+        public function getAll($classType) {
+            return $this->pdoModel->query('SELECT * FROM '.$this->table)->fetchAll(PDO::FETCH_CLASS, $classType);
         }
 
-        public function get(int $id) {
+        public function get($id, $classType) {
             return $this->pdoModel->query('SELECT * FROM '.$this->table.' WHERE id ='.$id)->fetchAll()[0];
         }
 

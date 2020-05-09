@@ -2,6 +2,7 @@
 
 use Controllers\HomeController;
 use Klein\Request;
+use Klein\Response;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require 'view/load.php';
@@ -14,7 +15,7 @@ $klein = new \Klein\Klein();
 // We do the defines here so that we can have the absolute path relevant to the application folder
 define('DATABASE_PATH', __DIR__ . '/db/gundatabase.db');
 
-$basePath = '/~cp464/VirtualGunMuseum';
+$basePath = '/~cp464/VirtualGunMuseum/index.php';
 $klein->respond('GET', $basePath . '/', function () {
     $controller = new HomeController();
     $controller->home();
@@ -25,15 +26,13 @@ $klein->respond('GET', $basePath . '/home', function () {
     $controller->home();
 });
 
-$klein->respond('GET', $basePath.'/home/getAllGuns', function (Request $request, $response, $service) {
+$klein->respond('GET', $basePath.'/home/getAllGuns', function (Request $request, Response $response, $service) {
     $controller = new HomeController();
-    $send = $request->param('format', 'json'); // send as json
-    $response->$send($controller->apiGetAllGuns());
+    $response->json($controller->apiGetAllGuns());
 });
 
 // Fallback route in case nothing is found;
 $klein->respond(function () {
-    echo 'here';
     $controller = new HomeController();
     $controller->home();
 });
