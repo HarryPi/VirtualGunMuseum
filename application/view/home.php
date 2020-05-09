@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="node_modules/bootswatch/dist/darkly/bootstrap.min.css"/>
     <link rel="stylesheet" href="node_modules/x3dom/x3dom.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
@@ -50,6 +51,7 @@
 </nav>
 
 <main class="mt-5 pt-5">
+    <div id="test"></div>
     <div class="container">
         <div id="mainContent">
             <!--Section: Jumbotron-->
@@ -77,20 +79,20 @@
 
             <hr class="my-5">
 
-            <section class="wow fadeIn">
+            <div class="wow fadeIn flex-row flex-wrap">
 
                 <!--Section heading-->
-                <div class="my-5 row text-center">
+                <div class="my-5 col-md-12 row text-center">
                     <h2 class="col-sm-12 h1 font-weight-bold">Our collection</h2>
                     <h6 class="col-sm-12 h6 font-weight-bold">
                         <strong>Gallery with photo-realistic materials</strong>
                     </h6>
                 </div>
                 <!--Grid row-->
-                <div id="museumPhotoItems"></div>
+                <div class="col-md-12" id="museumPhotoItems"></div>
                 <!--Grid row-->
 
-            </section>
+            </div>
 
         </div>
     </div>
@@ -100,6 +102,7 @@
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="node_modules/x3dom/x3dom.js"></script>
+<script src="dist/0.bundle.js"></script>
 <script src="dist/bundle.js"></script>
 </body>
 </html>

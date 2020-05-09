@@ -16,7 +16,6 @@ export class ResponsePhp {
         let responseText: string = await this.response.text();
         let indexToRemoveFrom: number = responseText.indexOf('<!DOCTYPE html>');
         let newText: string = responseText.slice(0, indexToRemoveFrom);
-        console.log(newText);
         return newText;
     }
 

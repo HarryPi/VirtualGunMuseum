@@ -1,13 +1,19 @@
-import {ShowcaseCameras} from "./ShowcaseCameras";
 import $ from 'jquery';
 import {GunModel} from "./models/DTO/gun.model";
-import {ColumnModel} from "./BootstrapHelpers/Column.model";
+import {HTMLCreator} from "./HTML/HTMLCreator";
+import {ModalSection} from "./BootstrapHelpers/Constants";
 
 export class PhotoGallery {
-    private currentView: string;
-    private photoItemsId = 'museumPhotoItems'
+    private htmlCreator: HTMLCreator;
+    private modalIdMap: Map<ModalSection, string>;
+    private className = 'PhotoGallery';
 
     constructor() {
+        this.htmlCreator = new HTMLCreator();
+        this.modalIdMap = new Map<ModalSection, string>();
+        this.modalIdMap.set(ModalSection.TITLE, 'gunModalTitle');
+        this.modalIdMap.set(ModalSection.BODY, 'gunModalBody');
+        this.modalIdMap.set(ModalSection.MODAL, 'gunModal');
     }
 
     /**
@@ -17,52 +23,65 @@ export class PhotoGallery {
      */
     public generatePhotoGalleryHtml(jsonGunModels: string, whereById: string) {
         const gunModels: GunModel[] = JSON.parse(jsonGunModels);
-        const row = this.generateRowDiv();
-        for (let gun of gunModels) {
-            row.append(this.generateColumn([
-                {
-                    colSize: 6,
-                    colBreakpoint: 'lg'
-                },
-                {
-                    colSize: 12,
-                    colBreakpoint: 'md'
-                }
-            ], gun))
-        }
-        console.log(row);
-        $(`#${whereById}`).append(row);
-    }
+        this.htmlCreator
+            .asNewElement()
+            .createBootstrapRow();
 
-    private generateRowDiv(): JQuery<HTMLElement> {
-        return $('<div></div>', {
-            id: PhotoGallery.name,
-            'class': 'row text-left'
-        });
+        gunModels.forEach((gun: GunModel, index: number) => {
+            this.htmlCreator.createBootstrapColumn([
+                {colSize: 12, colBreakpoint: "xs"},
+                {colSize: 12, colBreakpoint: "sm"},
+                {colSize: 6, colBreakpoint: "md"},
+            ]).injectAtColumn(this.generateModelCard(gun), index);
+        })
+        this.htmlCreator.createModal(
+            this.modalIdMap.get(ModalSection.MODAL),
+            this.modalIdMap.get(ModalSection.TITLE),
+            this.modalIdMap.get(ModalSection.BODY))
+            .injectCreatedContentAt($('#museumPhotoItems'));
+
+        // Unfortunately we cant do this in the previous loop as the HTML has not been injected yet
+        gunModels.forEach(gun => this.setOnClickImagePopup(`#${gun.id}__${this.className}`))
     }
 
     /**
-     * Generates a nice templated column
+     * Generates a nice templated image with text
      *
-     * @param columnSizes Can recieve multiple bootstrap column like objects to apply as classes
      * @param gunModel The model to format the template from
      */
-    private generateColumn(columnSizes: ColumnModel[], gunModel: GunModel): JQuery<HTMLElement> {
+    private generateModelCard(gunModel: GunModel): JQuery<HTMLElement> {
         // language=HTML
-        return $('<div></div>', {
-            'class': columnSizes.map((col: ColumnModel) => {
-                return `col-${col.colBreakpoint}-${col.colSize}`
-            }).join(' '),
-            id: gunModel.id + PhotoGallery.name
-        }).append(`
-        <div class="view overlay rounded z-depth-1-half mb-3">
-            <img class="img-fluid" src='${gunModel.url}' />
-        </div>
-        <h3 class="h4">
-            ${gunModel.shortDescription}
-        </h3>
-        <p class="text-body">${gunModel.description}</p>
-        <hr>
-        `);
+        return $(`<div class="card w-100">
+    <div>
+        <img class="card-img-top" id="${gunModel.id}__${this.className}" src="${gunModel.url}"
+             alt="Card image cap">
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">${gunModel.name}</h5>
+        <p class="card-subtitle">Click on the image to see it zoomed in!</p>
+        <p class="card-text">${gunModel.shortDescription}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>`)
+    }
+
+    private setOnClickImagePopup(id: string) {
+        // Here we bind the clicks on the card images
+        // We want to mimick that the picture has left the card and moved to the modal
+        let cardImg = $(id).parent();
+
+        cardImg.on('click', () => {
+            // First store the image in a temp variable
+            const tempImage = cardImg.html();
+            cardImg = cardImg.empty(); // Clear the card
+            // make the modal appear
+            const modal = $(`#${this.modalIdMap.get(ModalSection.MODAL)}`).modal('show');
+            $($(tempImage)).appendTo(modal.find('div.modal-body')); // append the temp image to modal
+            modal.on('hide.bs.modal', (event: Event) => {
+                cardImg.empty();
+                $($(tempImage)).appendTo(cardImg);
+                modal.find('div.modal-body').empty();
+            })
+        })
     }
 }

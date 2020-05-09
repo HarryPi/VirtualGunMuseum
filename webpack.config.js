@@ -1,7 +1,14 @@
 const path = require('path');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
+    optimization: {
+        runtimeChunk: "single"
+    },
+    mode: "production",
+    externals: {
+        jquery: 'jQuery'
+    },
     entry: './src/index.ts',
     devtool: 'inline-source-map',
     module: {
