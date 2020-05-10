@@ -4,7 +4,8 @@ export class GunModel {
         public name: string,
         public shortDescription: string,
         public description: string,
-        public url: string
+        public url: string,
+        public url_x3d: string
     ) {
     }
 }

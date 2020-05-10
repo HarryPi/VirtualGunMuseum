@@ -1,8 +1,9 @@
 import $ from 'jquery';
 import {PhotoGallery} from "./PhotoGallery";
-import {ResponsePhp} from "./ResponseHelpers/ResponsePhp";
 import {HTMLCreator} from "./HTML/HTMLCreator";
 import {LoaderCreator, LoaderKind} from "./Loader/Loader";
+import {UrlLoader} from "./Loader/UrlLoader";
+import {HttpResponseAction} from "./ResponseHelpers/HttpResponseAction";
 import {GunModel} from "./models/DTO/gun.model";
 
 declare var x3dom: any;
@@ -19,8 +20,8 @@ async function bindFunctions() {
     htmlCreator
         .createBootstrapRow()
         .createBootstrapIdenticalColumns([
-            {colBreakpoint: "sm", colSize: 12},
-            {colBreakpoint: "md", colSize: 6}
+                {colBreakpoint: "sm", colSize: 12},
+                {colBreakpoint: "md", colSize: 6}
             ],
             'd-flex justify-content-center mb-2', 4)
         .injectAtAllColumns(loaderCreator.createLoaderDiv())
@@ -28,22 +29,16 @@ async function bindFunctions() {
 
 
     // When loading is done attempt to get gun models
-    const onDataLoaded = fetch('http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/home/guns', {
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        }
-    });
 
-    const response: ResponsePhp = new ResponsePhp(await onDataLoaded);
+    const gunModels = await new UrlLoader()
+        .urlToCall('http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/home/guns')
+        .actionOnFailure(HttpResponseAction.SHOW_USER_MESSAGE)
+        .actionOnsuccess(HttpResponseAction.SILENCE_AFTER_ACTION)
+        .retryOnFailure(HttpResponseAction.NO_RETRY)
+        .callUrlAndParseAsJson<GunModel[]>();
 
-    if (response.ok) {
-        const textData: ResponsePhp = await response.fromPhpToJsonFormatString();
-        const jsonData: GunModel[] = await textData.parseAsJson<GunModel[]>();
-
-        $('#museumPhotoItems').empty();
-        gallery.generatePhotoGalleryHtml(jsonData, 'museumPhotoItems');
-    }
+    $('#museumPhotoItems').empty();
+    gallery.generatePhotoGalleryHtml(gunModels, 'museumPhotoItems');
 
 
 }

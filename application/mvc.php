@@ -9,6 +9,8 @@ require 'view/load.php';
 require 'model/GunModel.php';
 require 'controller/HomeController.php';
 require 'helpers/Helpers.php';
+require 'model/dto/Dto.php';
+require 'model/dto/GunDto.php';
 
 $klein = new \Klein\Klein();
 
@@ -26,14 +28,24 @@ $klein->respond('GET', $basePath . '/home', function () {
     $controller->home();
 });
 
-$klein->respond('GET', $basePath.'/home/guns', function (Request $request, Response $response, $service) {
-    $controller = new HomeController();
-    $response->json($controller->apiGetAllGuns());
+$klein->respond('GET', $basePath . '/home/guns', function (Request $request, Response $response, $service) {
+    try {
+        $controller = new HomeController();
+        $response->json($controller->apiGetAllGuns());
+    } catch (\Exception $e) {
+        $response->code(400);
+        $response->body($e->getMessage());
+    }
 });
 
-$klein->respond('GET', $basePath.'/home/gun/', function (Request $request, Response $response, $service) {
-    $controller = new HomeController();
-    $response->json($controller->apiGetAllGuns());
+$klein->respond('GET', $basePath . '/home/guns/[:id]', function (Request $request, Response $response, $service) {
+    try {
+        $controller = new HomeController();
+        $response->json($controller->apiGetGunById($request->id));
+    } catch (\Exception $e) {
+        $response->code(400);
+        $response->body($e->getMessage());
+    }
 });
 
 // Fallback route in case nothing is found;

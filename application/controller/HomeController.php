@@ -36,4 +36,8 @@
                 echo json_encode('We failed to get your data please try again.');
             }
         }
+
+        function apiGetGunById($id) {
+            return $this->model->get($id, GunModel::class);
+        }
     }

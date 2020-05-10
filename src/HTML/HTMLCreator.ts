@@ -1,9 +1,12 @@
 import {ColumnModel} from "../BootstrapHelpers/Column.model";
 import $ from "jquery";
+import {Guid} from "guid-typescript";
 
 export class HTMLCreator {
     private static allInjected = [];
     private html: JQuery<HTMLElement>;
+    private id: string;
+    private searchedElement: JQuery = null;
 
     constructor() {
         this.html = $(`<div class="auto-generated"></div>`);
@@ -14,7 +17,8 @@ export class HTMLCreator {
      */
     createBootstrapRow(): HTMLCreator {
         const newEl = $('<div class="row"></div>');
-        newEl.appendTo(this.html.attr('class', 'auto-generated'));
+        this.id = Guid.create().toString();
+        newEl.appendTo(this.html.attr('class', 'auto-generated').attr('id', this.id));
         return this;
     }
 
@@ -69,6 +73,8 @@ export class HTMLCreator {
     injectCreatedContentAt(where: HTMLElement | JQuery): void {
         this.html.appendTo(where);
         this.asNewElement();
+        HTMLCreator.allInjected.push(this.id);
+        this.id = '';
     }
 
     /**
@@ -76,7 +82,7 @@ export class HTMLCreator {
      * Will also clear all content in passed element before injecting
      * @param where Id of where to dump the HTML
      */
-    injectCreatedConantAndClear(where: HTMLElement | JQuery): void {
+    injectCreatedContentAndClear(where: HTMLElement | JQuery): void {
         $(where).empty();
         this.injectCreatedContentAt(where);
     }
@@ -109,12 +115,80 @@ export class HTMLCreator {
     }
 
     /**
+     * Creates a small toast on the top right corner with a server message
+     * @param message
+     */
+    createToast(message: string): HTMLCreator {
+        $(`            
+            <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+                <div class="toast" style="position: absolute; top: 0; right: 0;">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Server Message</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
+                </div>
+            </div>
+                    `).appendTo(this.html);
+        return this;
+    }
+
+    /**
      * Discards the old inner HTML
      * But does not clear it!
      */
-    asNewElement() {
+    asNewElement(): HTMLCreator {
         this.html = $(`<div></div>`);
         return this;
+    }
+
+    /**
+     * Instead of creating a new div to start the HTML creation process it attaches it to an exsting HTML element
+     */
+    asAppendToExisting(element: JQuery): HTMLCreator {
+        this.html = null;
+        this.html = element;
+        return this;
+    }
+
+    /**
+     * Fins an element so that the HTML creator will pefrom all subsequent actions on find element
+     * @param selector
+     */
+    find(selector: string): HTMLCreator {
+        this.searchedElement = this.html.find(selector);
+        return this;
+    }
+
+    /**
+     * Called after operations on find element where done
+     */
+    cancelFind(): HTMLCreator {
+        this.searchedElement = null;
+        return this;
+    }
+
+    createButtonDropdown() {
+        if (this.searchedElement) {
+            $(`            
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <button class="dropdown-item" type="button">Action</button>
+                    <button class="dropdown-item" type="button">Another action</button>
+                    <button class="dropdown-item" type="button">Something else here</button>
+                </div>
+            </div>
+            `).appendTo(this.html.find(this.searchedElement));
+            return this;
+        }
     }
 
     /**
@@ -126,5 +200,9 @@ export class HTMLCreator {
             .forEach((item: HTMLElement) => {
                 $(item).empty();
             })
+    }
+
+    public static getIdOfLastInjected(): string {
+        return HTMLCreator.allInjected[HTMLCreator.allInjected.length - 1];
     }
 }

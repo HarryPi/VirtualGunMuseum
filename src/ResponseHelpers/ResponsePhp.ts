@@ -1,8 +1,8 @@
 export class ResponsePhp {
-    private _response: Response;
+    private _response: JQueryXHR;
     private _responseText: string;
 
-    constructor(response: Response) {
+    constructor(response: JQueryXHR) {
         this._response = response;
     }
 
@@ -12,10 +12,12 @@ export class ResponsePhp {
      * Strip the HTML and keep a JSON format String
      */
     async fromPhpToJsonFormatString(): Promise<ResponsePhp> {
-        if (!this._response.ok) {
-            return null;
+        let responseText;
+        if (typeof this._response === "object") {
+            responseText = this._response.responseText;
+        } else {
+            responseText = this._response;
         }
-        let responseText: string = await this._response.text();
         let indexToRemoveFrom: number = responseText.indexOf('<!DOCTYPE html>');
         let newText: string = responseText.slice(0, indexToRemoveFrom);
         this._responseText = newText;
@@ -33,7 +35,7 @@ export class ResponsePhp {
     }
 
     ok(): boolean {
-        return this._response.ok;
+        return this._response.state() === "resolved";
     }
 
     get responseText(): string {
