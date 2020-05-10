@@ -3,6 +3,7 @@
 <X3D xmlns:xsd='http://www.w3.org/2001/XMLSchema-instance' profile='Full' version='3.0'
      xsd:noNamespaceSchemaLocation='http://www.web3d.org/specifications/x3d-3.0.xsd'>
     <Scene DEF='scene'>
+        <!--This time sensor is linked to the multiple animations to simulate an explode single animation see routes-->
         <TimeSensor DEF="ExplodeTimer" cycleInterval="10" loop="true" enabled="false"></TimeSensor>
         <Viewpoint DEF='front_camera-452' description='front_camera-452' orientation='1 1.681e-05 0 -0.002469'
                    position='8.637 6.099 114.2' fieldOfView='0.6024'/>

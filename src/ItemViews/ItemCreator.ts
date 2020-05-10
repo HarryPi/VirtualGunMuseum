@@ -36,7 +36,10 @@ export class ItemCreator {
                 dropdownButtons: [
                     {
                         buttonName: 'Explode Weapon',
-                        buttonAction: () => console.log('Hello from button!')
+                        buttonAction: () => {
+                            $('#gunModel__ExplodeTimer').attr('enabled', 'true')
+                            $('#gunModel__ExplodeTimer').attr('loop', 'false')
+                        }
                     }
 
                 ]
