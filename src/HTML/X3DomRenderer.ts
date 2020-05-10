@@ -8,7 +8,7 @@ export class X3DomRenderer {
         return $(`        
         <X3D class="${withClass}" xmlns="http://www.web3d.org/specifications/x3d-namespace">
             <Scene>
-                <Inline nameSpaceName="${namespace}" url="${url}"/>
+                <Inline nameSpaceName="${namespace}" mapDEFToID="true" url="${url}"/>
             </Scene>
         </X3D>
             `)

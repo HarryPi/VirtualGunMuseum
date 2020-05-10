@@ -1,7 +1,7 @@
 export class ButtonModel {
     constructor(
-        buttonName: string,
-        buttonAction: () => void
+        public buttonName: string,
+        public buttonAction: () => void
     ) {
     }
 }

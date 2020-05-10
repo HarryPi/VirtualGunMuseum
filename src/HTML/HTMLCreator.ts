@@ -1,12 +1,20 @@
 import {ColumnModel} from "../BootstrapHelpers/Column.model";
 import $ from "jquery";
 import {Guid} from "guid-typescript";
+import {DropdownModel} from "../models/HTML/Dropdown.model";
+import {ButtonModel} from "../models/HTML/Button.model";
 
 export class HTMLCreator {
     private static allInjected = [];
     private html: JQuery<HTMLElement>;
     private id: string;
     private searchedElement: JQuery = null;
+    /**
+     * As elements are created dynamically at the end we need to defer any operations such as
+     * onclick events at the very end when we inject the HTML to the dom otherwise DOM will not
+     * register the events thus we store them here
+     */
+    private operations = [];
 
     constructor() {
         this.html = $(`<div class="auto-generated"></div>`);
@@ -72,6 +80,7 @@ export class HTMLCreator {
      */
     injectCreatedContentAt(where: HTMLElement | JQuery): void {
         this.html.appendTo(where);
+        this.operations.forEach((op) => op());
         this.asNewElement();
         HTMLCreator.allInjected.push(this.id);
         this.id = '';
@@ -172,21 +181,30 @@ export class HTMLCreator {
         return this;
     }
 
-    createButtonDropdown() {
+    createButtonDropdown(dropdown: DropdownModel) {
+        const buttonsHTMLString: string = dropdown.dropdownButtons.map((button: ButtonModel) => {
+            return `<button class="dropdown-item" id="${button.buttonName.replace(' ', '_')}" type="button">${button.buttonName}</button>`
+        }).join(' ');
         if (this.searchedElement) {
             $(`            
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="${dropdown.dropdownName}__HTMLCREATOR" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    ${dropdown.dropdownName}
                 </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <button class="dropdown-item" type="button">Action</button>
-                    <button class="dropdown-item" type="button">Another action</button>
-                    <button class="dropdown-item" type="button">Something else here</button>
+                <div class="dropdown-menu" aria-labelledby="${dropdown.dropdownName}__HTMLCREATOR">
+                    ${buttonsHTMLString}
                 </div>
             </div>
             `).appendTo(this.html.find(this.searchedElement));
+            dropdown.dropdownButtons.forEach((button) => {
+                this.operations.push(
+                    () => {
+                        $(`#${button.buttonName.replace(' ', '_')}`)
+                            .on('click', () => {button.buttonAction()})
+                    }
+                )
+            })
             return this;
         }
     }

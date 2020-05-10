@@ -31,7 +31,16 @@ export class ItemCreator {
             ])
             .injectAtColumn(X3DomRenderer.createInlineAsCard(gunModel.url_x3d, 'gunModel'), 0)
             .find('div.card-body')
-            .createButtonDropdown()
+            .createButtonDropdown({
+                dropdownName: 'Animations',
+                dropdownButtons: [
+                    {
+                        buttonName: 'Explode Weapon',
+                        buttonAction: () => console.log('Hello from button!')
+                    }
+
+                ]
+            })
             .cancelFind()
             .injectCreatedContentAndClear($('#mainContent'));
         x3dom.reload();
