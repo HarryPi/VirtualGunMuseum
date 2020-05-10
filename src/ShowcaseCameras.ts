@@ -1,4 +1,6 @@
 export enum ShowcaseCameras {
-    ON_LOAD = "on_load_camera",
-    CLOSEUP = "on_aproach_camera"
+    CAMERA_FRONT = 'CameraFront',
+    CAMERA_RIGHT = 'CameraRight',
+    CAMERA_LEFT = 'CameraLeft',
+    CAMERA_BACK = 'CameraBack'
 }

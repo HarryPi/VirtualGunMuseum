@@ -6,7 +6,7 @@ export class X3DomRenderer {
 
     public static createInline(url: string, namespace: string, withClass?: string): JQuery {
         return $(`        
-        <X3D class="${withClass}" xmlns="http://www.web3d.org/specifications/x3d-namespace">
+        <X3D id="x3dom__model" class="${withClass}" xmlns="http://www.web3d.org/specifications/x3d-namespace">
             <Scene>
                 <Inline nameSpaceName="${namespace}" mapDEFToID="true" url="${url}"/>
             </Scene>

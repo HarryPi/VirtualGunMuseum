@@ -9,6 +9,7 @@ export class HTMLCreator {
     private html: JQuery<HTMLElement>;
     private id: string;
     private searchedElement: JQuery = null;
+    private preparedElement: JQuery = null;
     /**
      * As elements are created dynamically at the end we need to defer any operations such as
      * onclick events at the very end when we inject the HTML to the dom otherwise DOM will not
@@ -26,6 +27,12 @@ export class HTMLCreator {
     createBootstrapRow(): HTMLCreator {
         const newEl = $('<div class="row"></div>');
         this.id = Guid.create().toString();
+
+        if (this.searchedElement) {
+            newEl.appendTo(this.searchedElement)
+            return this;
+        }
+
         newEl.appendTo(this.html.attr('class', 'auto-generated').attr('id', this.id));
         return this;
     }
@@ -38,6 +45,10 @@ export class HTMLCreator {
      */
     createBootstrapColumn(columnModel: ColumnModel[], extraClass?: string): HTMLCreator {
         const newEl = $(`<div class="${ColumnModel.getAsClass(columnModel)} col ${extraClass}"></div>`)
+
+        if (this.searchedElement) {
+            newEl.appendTo(this.searchedElement.closest('div.row'));
+        }
         newEl.appendTo(this.html.find('div.row'));
         return this;
     }
@@ -60,7 +71,14 @@ export class HTMLCreator {
      * @param html Element to inject
      * @param col Column index
      */
-    injectAtColumn(html: HTMLElement | JQuery, col: number): HTMLCreator {
+    injectAtColumn(html: JQuery, col: number): HTMLCreator {
+        if (!html) {
+            html = this.preparedElement;
+        }
+        if (this.searchedElement) {
+            html.appendTo($(this.searchedElement.find('div.col').get(col)))
+            return this;
+        }
         $(html).appendTo(this.html.find('div.col').get(col));
         return this;
     }
@@ -84,6 +102,8 @@ export class HTMLCreator {
         this.asNewElement();
         HTMLCreator.allInjected.push(this.id);
         this.id = '';
+        this.preparedElement = null;
+        this.operations = [];
     }
 
     /**
@@ -181,6 +201,10 @@ export class HTMLCreator {
         return this;
     }
 
+    /**
+     * Creates a dropdown and immediettly appends it to the HTML stream
+     * @param dropdown
+     */
     createButtonDropdown(dropdown: DropdownModel) {
         const buttonsHTMLString: string = dropdown.dropdownButtons.map((button: ButtonModel) => {
             return `<button class="dropdown-item" id="${button.buttonName.replace(' ', '_')}" type="button">${button.buttonName}</button>`
@@ -201,12 +225,45 @@ export class HTMLCreator {
                 this.operations.push(
                     () => {
                         $(`#${button.buttonName.replace(' ', '_')}`)
-                            .on('click', () => {button.buttonAction()})
+                            .on('click', () => {
+                                button.buttonAction()
+                            })
                     }
                 )
             })
             return this;
         }
+    }
+
+    /**
+     * Creates a dropdown and appends it to the prepared elements sequence
+     */
+    prepareButtonDropdown(dropdown: DropdownModel) {
+        const buttonsHTMLString: string = dropdown.dropdownButtons.map((button: ButtonModel) => {
+            return `<button class="dropdown-item" id="${button.buttonName.replace(' ', '_')}" type="button">${button.buttonName}</button>`
+        }).join(' ');
+        this.preparedElement = $(`            
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="${dropdown.dropdownName}__HTMLCREATOR" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    ${dropdown.dropdownName}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="${dropdown.dropdownName}__HTMLCREATOR">
+                    ${buttonsHTMLString}
+                </div>
+            </div>
+            `);
+        dropdown.dropdownButtons.forEach((button) => {
+            this.operations.push(
+                () => {
+                    $(`#${button.buttonName.replace(' ', '_')}`)
+                        .on('click', () => {
+                            button.buttonAction()
+                        })
+                }
+            )
+        })
+        return this;
     }
 
     /**

@@ -5,21 +5,21 @@
     <Scene DEF='scene'>
         <!--This time sensor is linked to the multiple animations to simulate an explode single animation see routes-->
         <TimeSensor DEF="ExplodeTimer" cycleInterval="10" loop="true" enabled="false"></TimeSensor>
-        <Viewpoint DEF='front_camera-452' description='front_camera-452' orientation='1 1.681e-05 0 -0.002469'
+        <Viewpoint DEF='CameraFront' description='front_camera-452' orientation='1 1.681e-05 0 -0.002469'
                    position='8.637 6.099 114.2' fieldOfView='0.6024'/>
-        <Viewpoint DEF='right_camera-454' description='right_camera-454' orientation='-0.005703 -1 0.005703 -1.571'
+        <Viewpoint DEF='CameraRight' description='right_camera-454' orientation='-0.005703 -1 0.005703 -1.571'
                    position='83.26 5.532 0' fieldOfView='0.6024'/>
-        <Viewpoint DEF='left_camera-456' description='left_camera-456' orientation='0.009504 -0.9999 0.009504 -4.712'
+        <Viewpoint DEF='CameraLeft' description='left_camera-456' orientation='0.009504 -0.9999 0.009504 -4.712'
                    position='-65.96 6.95 0' fieldOfView='0.6024'/>
-        <Viewpoint DEF='back_camera-458' description='back_camera-458' orientation='0 -1 0 -3.137'
+        <Viewpoint DEF='CameraBack' description='back_camera-458' orientation='0 -1 0 -3.137'
                    position='8.561 4.007 -56.32' fieldOfView='0.6024'/>
-        <SpotLight DEF='Spot001-474' intensity='3' beamWidth='0.7505' cutOffAngle='0.7854' direction='0 -0.5618 -0.8273'
+        <SpotLight DEF='Spot001-474' intensity='1' beamWidth='0.7505' cutOffAngle='0.7854' direction='0 -0.5618 -0.8273'
                    location='0 27.66 30.21' radius='1576'/>
         <TimeSensor DEF='Spot001-474-TIMER' cycleInterval='3.333' loop='true'/>
-        <SpotLight DEF='Spot002-476' intensity='3' beamWidth='0.7505' cutOffAngle='0.7854' direction='0 -0.635 0.7725'
+        <SpotLight DEF='Spot002-476' intensity='1' beamWidth='0.7505' cutOffAngle='0.7854' direction='0 -0.635 0.7725'
                    location='0 31.06 -30.5' radius='1576'/>
         <TimeSensor DEF='Spot002-476-TIMER' cycleInterval='3.333' loop='true'/>
-        <SpotLight DEF='Spot003-478' intensity='3' beamWidth='0.7505' cutOffAngle='0.7854'
+        <SpotLight DEF='Spot003-478' intensity='1' beamWidth='0.7505' cutOffAngle='0.7854'
                    direction='0 -0.9999 -0.01718' location='0 40.28 -0.2132' radius='1576'/>
         <TimeSensor DEF='Spot003-478-TIMER' cycleInterval='3.333' loop='true'/>
         <SpotLight DEF='Spot004-480' beamWidth='0.7505' cutOffAngle='0.7854' direction='0 -0.004471 -1'
