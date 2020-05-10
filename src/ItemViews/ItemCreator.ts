@@ -24,6 +24,8 @@ export class ItemCreator {
             .actionOnFailure(HttpResponseAction.SHOW_USER_MESSAGE)
             .callUrlAndParseAsJson<GunModel>();
 
+
+        // Create x3dom HTML
         this.htmlCreator
             .asNewElement()
             .createBootstrapRow()
@@ -122,5 +124,17 @@ export class ItemCreator {
             .cancelFind()
             .injectCreatedContentAndClear($('#mainContent'));
         x3dom.reload();
+
+        // Create model info below the x3d model
+        $('div.card').after($('<div id="afterCard"></div>'));
+        this.htmlCreator
+            .asNewElement()
+            .createBootstrapRow()
+            .createBootstrapColumn([
+                {colSize: 12, colBreakpoint: "xs"}
+            ])
+            .prepareCard(gunModel.name, gunModel.shortDescription, gunModel.description)
+            .injectAtColumn(null, 0)
+            .injectCreatedContentAndClear($('#afterCard'))
     }
 }

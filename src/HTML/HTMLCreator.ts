@@ -21,6 +21,21 @@ export class HTMLCreator {
         this.html = $(`<div class="auto-generated"></div>`);
     }
 
+    prepareCard(cardTitle: string, subTitle: string, mainBodyText: string): HTMLCreator {
+        this.preparedElement = $(`            
+            <div class="card">
+                <div class="card-header">
+                    ${cardTitle}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">${subTitle}</h5>
+                    <p class="card-text">${mainBodyText}</p>
+                </div>
+            </div>`);
+
+        return this;
+    }
+
     /**
      * Creates a boostrap row
      */
@@ -278,6 +293,7 @@ export class HTMLCreator {
     }
 
     public static getIdOfLastInjected(): string {
+        console.log(HTMLCreator.allInjected);
         return HTMLCreator.allInjected[HTMLCreator.allInjected.length - 1];
     }
 }
