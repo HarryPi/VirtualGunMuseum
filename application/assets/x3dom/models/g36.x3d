@@ -13,6 +13,7 @@
                    position='-65.96 6.95 0' fieldOfView='0.6024'/>
         <Viewpoint DEF='CameraBack' description='back_camera-458' orientation='0 -1 0 -3.137'
                    position='8.561 4.007 -56.32' fieldOfView='0.6024'/>
+        <NavigationInfo DEF='NavInfo001-29' headlight='false' type='"EXAMINE"'/>
         <SpotLight DEF='Spot001-474' intensity='1' beamWidth='0.7505' cutOffAngle='0.7854' direction='0 -0.5618 -0.8273'
                    location='0 27.66 30.21' radius='1576'/>
         <TimeSensor DEF='Spot001-474-TIMER' cycleInterval='3.333' loop='true'/>
