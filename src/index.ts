@@ -17,6 +17,66 @@ async function bindFunctions() {
     const gallery: PhotoGallery = new PhotoGallery();
     const loaderCreator = new LoaderCreator(LoaderKind.GRID);
 
+
+    $('#home').on('click', async () => {
+        htmlCreator
+            .asNewElement()
+            .createBootstrapRow()
+            .createBootstrapColumn([
+                {colBreakpoint: "xs", colSize: 12}
+            ])
+            .preparedJumbotron()
+            .injectAtColumn(null, 0)
+            .injectCreatedContentAndClear($('#mainContent'));
+
+        htmlCreator
+            .asNewElement()
+            .createBootstrapRow()
+            .createBootstrapColumn([{colBreakpoint: "xs", colSize: 12}])
+            .injectAtColumn($(`
+            <hr class="my-5">
+            <div class="wow fadeIn flex-row flex-wrap">
+                <!--Section heading-->
+                <div class="my-5 col-md-12 row text-center">
+                    <h2 class="col-sm-12 h1 font-weight-bold">Our collection</h2>
+                    <h6 class="col-sm-12 h6 font-weight-bold">
+                        <strong>Gallery with photo-realistic materials</strong>
+                    </h6>
+                </div>
+            `), 0)
+            .injectCreatedContentAt($('#mainContent'));
+
+        htmlCreator
+            .asNewElement()
+            .createBootstrapRow()
+            .createBootstrapColumn([{colSize: 12, colBreakpoint: "md"}], '__gallery__')
+            .injectCreatedContentAt($('#mainContent'));
+
+        // Before we fire a request to the server ensure some loading indicator is showing
+        htmlCreator
+            .asNewElement()
+            .createBootstrapRow()
+            .createBootstrapIdenticalColumns([
+                    {colBreakpoint: "sm", colSize: 12},
+                    {colBreakpoint: "md", colSize: 6}
+                ],
+                'd-flex justify-content-center mb-2', 4)
+            .injectAtAllColumns(loaderCreator.createLoaderDiv())
+            .injectCreatedContentAt($('div.__gallery__'));
+
+
+        // When loading is done attempt to get gun models
+        const gunModels = await new UrlLoader()
+            .urlToCall('http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/home/guns')
+            .actionOnFailure(HttpResponseAction.SHOW_USER_MESSAGE)
+            .actionOnsuccess(HttpResponseAction.SILENCE_AFTER_ACTION)
+            .retryOnFailure(HttpResponseAction.NO_RETRY)
+            .callUrlAndParseAsJson<GunModel[]>();
+
+        $('div.__gallery__').empty();
+        gallery.generatePhotoGalleryHtml(gunModels, $('div.__gallery__'));
+    })
+
     // Before we fire a request to the server ensure some loading indicator is showing
     htmlCreator
         .createBootstrapRow()
@@ -30,7 +90,6 @@ async function bindFunctions() {
 
 
     // When loading is done attempt to get gun models
-
     const gunModels = await new UrlLoader()
         .urlToCall('http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/home/guns')
         .actionOnFailure(HttpResponseAction.SHOW_USER_MESSAGE)
@@ -39,7 +98,7 @@ async function bindFunctions() {
         .callUrlAndParseAsJson<GunModel[]>();
 
     $('#museumPhotoItems').empty();
-    gallery.generatePhotoGalleryHtml(gunModels, 'museumPhotoItems');
+    gallery.generatePhotoGalleryHtml(gunModels, $('#museumPhotoItems'));
 
     // Get list dropdown now that we have the model url
     htmlCreator
@@ -57,6 +116,5 @@ async function bindFunctions() {
             })
         })
         .injectCreatedContentAndClear(null, true);
-
-
 }
+

@@ -20,9 +20,9 @@ export class PhotoGallery {
     /**
      * Generates a photo gallery based on a json string of gun models
      * @param guns
-     * @param whereById The id of the location to place the gallery
+     * @param where
      */
-    public generatePhotoGalleryHtml(guns: GunModel[], whereById: string) {
+    public generatePhotoGalleryHtml(guns: GunModel[], where: JQuery) {
         const gunModels: GunModel[] = guns;
         this.htmlCreator
             .asNewElement()
@@ -39,7 +39,7 @@ export class PhotoGallery {
             this.modalIdMap.get(ModalSection.MODAL),
             this.modalIdMap.get(ModalSection.TITLE),
             this.modalIdMap.get(ModalSection.BODY))
-            .injectCreatedContentAt($('#museumPhotoItems'));
+            .injectCreatedContentAt(where);
 
         // Unfortunately we cant do this in the previous loop as the HTML has not been injected yet
         // We use __ class name as the DB id will most likely alone not be unique across tables thus we might end up

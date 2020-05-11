@@ -23,7 +23,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li id="home" class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown" id="gunDropdown">
@@ -34,7 +34,6 @@
 </nav>
 
 <main class="mt-5 pt-5">
-    <div id="test"></div>
     <div class="container">
         <div id="mainContent">
             <!--Section: Jumbotron-->
@@ -48,9 +47,9 @@
                     </h1>
                     <p>
                         <strong>Scroll further down to see our selection individually or click here to go to our
-                            showcase!</strong>
+                            showcase! ( All the weapons in a nice cabinet )</strong>
                     </p>
-                    <a target="_blank" href="#" class="btn btn-outline-white btn-lg">
+                    <a href="#" class="btn btn-outline-white btn-lg">
                         Go to our showcase!
                         <i class="fas fa-graduation-cap ml-2"></i>
                     </a>

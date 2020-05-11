@@ -299,6 +299,35 @@ export class HTMLCreator {
         return this;
     }
 
+    preparedJumbotron(): HTMLCreator {
+        this.preparedElement = $(`
+        <section class="card" style="background-image: url(application/assets/images/hero-background.jpg)">
+
+                <!-- Content -->
+                <div class="card-body text-white text-center py-5 px-5 my-5">
+
+                    <h1 class="mb-4">
+                        <strong>Welcome to the Gun Museum!</strong>
+                    </h1>
+                    <p>
+                        <strong>Scroll further down to see our selection individually or click here to go to our
+                            showcase! ( All the weapons in a nice cabinet )</strong>
+                    </p>
+                    <a href="#" id="showcase" class="btn btn-outline-white btn-lg">
+                        Go to our showcase!
+                        <i class="fas fa-graduation-cap ml-2"></i>
+                    </a>
+
+                </div>
+                <!-- Content -->
+            </section>
+        `);
+        this.operations.push(() => {
+            $('#showcase').on('click', () => console.log('JUBMO CLICK!'))
+        })
+        return this;
+    }
+
     /**
      * WARNING - Will clear ALL Created content
      */
