@@ -5,6 +5,7 @@ import {LoaderCreator, LoaderKind} from "./Loader/Loader";
 import {UrlLoader} from "./Loader/UrlLoader";
 import {HttpResponseAction} from "./ResponseHelpers/HttpResponseAction";
 import {GunModel} from "./models/DTO/gun.model";
+import {ItemCreator} from "./ItemViews/ItemCreator";
 
 declare var x3dom: any;
 
@@ -39,6 +40,23 @@ async function bindFunctions() {
 
     $('#museumPhotoItems').empty();
     gallery.generatePhotoGalleryHtml(gunModels, 'museumPhotoItems');
+
+    // Get list dropdown now that we have the model url
+    htmlCreator
+        .asAppendToExisting($('#gunDropdown'))
+        .prepareButtonDropdown({
+            dropdownName: 'Our Guns',
+            dropdownButtons: gunModels.map(gun => {
+                return {
+                    buttonName: gun.name,
+                    buttonAction: () => {
+                        const itemCreator = new ItemCreator();
+                        itemCreator.createPageForItem(gun.id);
+                    }
+                }
+            })
+        })
+        .injectCreatedContentAndClear(null, true);
 
 
 }

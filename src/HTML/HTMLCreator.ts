@@ -108,11 +108,9 @@ export class HTMLCreator {
     }
 
     /**
-     * Injects the content at location and flushes the HTML stream
-     * @param where Id of where to dump the HTML
+     *
      */
-    injectCreatedContentAt(where: HTMLElement | JQuery): void {
-        this.html.appendTo(where);
+    private clearHTMLCreatorInnerVars() {
         this.operations.forEach((op) => op());
         this.asNewElement();
         HTMLCreator.allInjected.push(this.id);
@@ -122,11 +120,29 @@ export class HTMLCreator {
     }
 
     /**
+     * Injects the content at location and flushes the HTML stream
+     * @param where Id of where to dump the HTML
+     */
+    injectCreatedContentAt(where: HTMLElement | JQuery): void {
+        this.html.appendTo(where);
+        this.clearHTMLCreatorInnerVars();
+    }
+
+    /**
      * Injects the content at location and flushes the HTML stream.
      * Will also clear all content in passed element before injecting
      * @param where Id of where to dump the HTML
+     * @param appendPrepared Append or not any prepared elements
      */
-    injectCreatedContentAndClear(where: HTMLElement | JQuery): void {
+    injectCreatedContentAndClear(where: HTMLElement | JQuery, appendPrepared: boolean = false): void {
+        if (appendPrepared && this.preparedElement) {
+            this.preparedElement.appendTo(this.html);
+        }
+        if (!where) {
+            // On existing item thus already appended
+            this.clearHTMLCreatorInnerVars();
+            return;
+        }
         $(where).empty();
         this.injectCreatedContentAt(where);
     }
@@ -252,13 +268,15 @@ export class HTMLCreator {
 
     /**
      * Creates a dropdown and appends it to the prepared elements sequence
+     * @param dropdown The {@link DropdownModel} where it will extract information on how to create the dropdown
+     * @param asList If the dropdown parent element will be a list (<li>) or div (<div>)
      */
-    prepareButtonDropdown(dropdown: DropdownModel) {
+    prepareButtonDropdown(dropdown: DropdownModel, asList: boolean = false) {
         const buttonsHTMLString: string = dropdown.dropdownButtons.map((button: ButtonModel) => {
-            return `<button class="dropdown-item" id="${button.buttonName.replace(' ', '_')}" type="button">${button.buttonName}</button>`
+            return `<button class="dropdown-item" id="${button.buttonName.replace(/ /g, '')}" type="button">${button.buttonName}</button>`
         }).join(' ');
         this.preparedElement = $(`            
-            <div class="dropdown">
+            <${asList ? 'li' : 'div'} class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="${dropdown.dropdownName}__HTMLCREATOR" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                     ${dropdown.dropdownName}
@@ -266,12 +284,12 @@ export class HTMLCreator {
                 <div class="dropdown-menu" aria-labelledby="${dropdown.dropdownName}__HTMLCREATOR">
                     ${buttonsHTMLString}
                 </div>
-            </div>
+            </${asList ? 'li' : 'div'}>
             `);
         dropdown.dropdownButtons.forEach((button) => {
             this.operations.push(
                 () => {
-                    $(`#${button.buttonName.replace(' ', '_')}`)
+                    $(`#${button.buttonName.replace(/ /g, '')}`)
                         .on('click', () => {
                             button.buttonAction()
                         })

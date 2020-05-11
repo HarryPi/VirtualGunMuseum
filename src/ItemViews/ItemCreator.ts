@@ -16,11 +16,11 @@ export class ItemCreator {
 
     async createPageForItem(gunId: string): Promise<void> {
         gunId = gunId.replace('#', '');
-        console.log(`http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/home/guns/${gunId}`);
-        // Fetch the single gun model from API
 
+        // Fetch the single gun model from API
         const gunModel: GunModel = await new UrlLoader()
             .urlToCall(`http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/home/guns/${gunId}`)
+            .blockUIOnCall(true) // We block the UI when a request is send the default is block but shown here for demo purposes
             .actionOnFailure(HttpResponseAction.SHOW_USER_MESSAGE)
             .callUrlAndParseAsJson<GunModel>();
 

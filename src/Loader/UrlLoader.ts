@@ -9,6 +9,7 @@ export class UrlLoader {
     private retryInCaseOfFailure: HttpResponseAction = HttpResponseAction.NO_RETRY;
     private retryTimer: number;
     private readonly headers: JQuery.PlainObject<string> = {};
+    private blockUI: boolean = true;
 
     constructor() {
         this.headers = {
@@ -55,12 +56,23 @@ export class UrlLoader {
         return this;
     }
 
+    blockUIOnCall(block: boolean = true): UrlLoader {
+        this.blockUI = block;
+        return this;
+    }
+
     /**
      * Fire a fetch command to the url
      */
     async callUrl(): Promise<ResponsePhp> {
         if (!this.url) {
-            throw new Error('Url was not set aborting!');
+            const htmlCreator = new HTMLCreator();
+            htmlCreator.asNewElement()
+                .createToast(`No url was set to call!`)
+        }
+
+        if (this.blockUI) {
+            $('#overlay').fadeIn();
         }
 
         try {
@@ -81,6 +93,11 @@ export class UrlLoader {
                 const htmlCreator = new HTMLCreator();
                 htmlCreator.asNewElement()
                     .createToast(`Something went wrong while getting your gun model! \n For the developer: `)
+            }
+        } finally {
+            // Unblock ui no matter success or failer
+            if (this.blockUI) {
+                $('#overlay').fadeOut();
             }
         }
     }
