@@ -3,6 +3,7 @@ import {GunModel} from "./models/DTO/gun.model";
 import {HTMLCreator} from "./HTML/HTMLCreator";
 import {ModalSection} from "./BootstrapHelpers/Constants";
 import {ItemCreator} from "./ItemViews/ItemCreator";
+import {ResponsePhp} from "./ResponseHelpers/ResponsePhp";
 
 export class PhotoGallery {
     private htmlCreator: HTMLCreator;
@@ -27,6 +28,8 @@ export class PhotoGallery {
         this.htmlCreator
             .asNewElement()
             .createBootstrapRow();
+
+        const response = new ResponsePhp(null);
 
         gunModels.forEach((gun: GunModel, index: number) => {
             this.htmlCreator.createBootstrapColumn([

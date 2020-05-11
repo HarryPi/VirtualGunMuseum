@@ -34,6 +34,11 @@ export class ResponsePhp {
         return JSON.parse(this.responseText) as T;
     }
 
+    /**
+     * @description
+     * Returns if the http response has resolved successfully
+     * @deprecated Use await async instead with throw catch block
+     */
     ok(): boolean {
         return this._response.state() === "resolved";
     }
