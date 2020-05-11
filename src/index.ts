@@ -6,6 +6,7 @@ import {UrlLoader} from "./Loader/UrlLoader";
 import {HttpResponseAction} from "./ResponseHelpers/HttpResponseAction";
 import {GunModel} from "./models/DTO/gun.model";
 import {ItemCreator} from "./ItemViews/ItemCreator";
+import {ShowcaseCreator} from "./ItemViews/ShowcaseCreator";
 
 declare var x3dom: any;
 
@@ -75,8 +76,16 @@ async function bindFunctions() {
 
         $('div.__gallery__').empty();
         gallery.generatePhotoGalleryHtml(gunModels, $('div.__gallery__'));
-    })
 
+        $('#goToShowcase').on('click', () => {
+            const showcase = new ShowcaseCreator();
+            showcase.createShowcaseCard($('#mainContent'));
+        })
+    })
+    $('#goToShowcase').on('click', () => {
+        const showcase = new ShowcaseCreator();
+        showcase.createShowcaseCard($('#mainContent'));
+    })
     // Before we fire a request to the server ensure some loading indicator is showing
     htmlCreator
         .createBootstrapRow()

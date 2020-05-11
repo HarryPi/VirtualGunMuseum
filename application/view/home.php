@@ -49,7 +49,7 @@
                         <strong>Scroll further down to see our selection individually or click here to go to our
                             showcase! ( All the weapons in a nice cabinet )</strong>
                     </p>
-                    <a href="#" class="btn btn-outline-white btn-lg">
+                    <a href="#" id="goToShowcase" class="btn btn-outline-white btn-lg">
                         Go to our showcase!
                         <i class="fas fa-graduation-cap ml-2"></i>
                     </a>

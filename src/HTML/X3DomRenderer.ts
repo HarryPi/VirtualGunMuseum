@@ -27,4 +27,11 @@ export class X3DomRenderer {
             .append(X3DomRenderer.createInline(url, namespace, 'card-img-top'));
             return toCreate;
     }
+
+    /**
+     * Reloads all containers that exist on screen
+     */
+    public static reload() {
+        x3dom.reload();
+    }
 }

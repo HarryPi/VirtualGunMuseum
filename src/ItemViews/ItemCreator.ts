@@ -5,7 +5,6 @@ import {UrlLoader} from "../Loader/UrlLoader";
 import {HttpResponseAction} from "../ResponseHelpers/HttpResponseAction";
 import {ShowcaseCameras} from "../ShowcaseCameras";
 
-declare var x3dom: any;
 
 export class ItemCreator {
     private htmlCreator: HTMLCreator;
@@ -123,7 +122,8 @@ export class ItemCreator {
             .injectAtColumn(null, 3)
             .cancelFind()
             .injectCreatedContentAndClear($('#mainContent'));
-        x3dom.reload();
+
+        X3DomRenderer.reload();
 
         // Create model info below the x3d model
         $('div.card').after($('<div id="afterCard"></div>'));
