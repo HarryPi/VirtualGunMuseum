@@ -67,7 +67,7 @@ export class PhotoGallery {
         <h5 class="card-title">${gunModel.name}</h5>
         <p class="card-subtitle">Click on the image to see it zoomed in!</p>
         <p class="card-text">${gunModel.shortDescription}</p>
-        <button id="${gunModel.id}__${this.className}__link" class="btn btn-primary">Go somewhere</button>
+        <button id="${gunModel.id}__${this.className}__link" class="btn btn-primary">Click to see the 3D model!</button>
     </div>
 </div>`)
     }
