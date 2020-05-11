@@ -20,6 +20,7 @@ export class ItemCreator {
         const gunModel: GunModel = await new UrlLoader()
             .urlToCall(`http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/home/guns/${gunId}`)
             .blockUIOnCall(true) // We block the UI when a request is send the default is block but shown here for demo purposes
+            .actionOnsuccess(HttpResponseAction.SILENCE_AFTER_ACTION)
             .actionOnFailure(HttpResponseAction.SHOW_USER_MESSAGE)
             .callUrlAndParseAsJson<GunModel>();
 

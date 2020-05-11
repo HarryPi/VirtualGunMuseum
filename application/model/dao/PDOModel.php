@@ -4,8 +4,8 @@
     use Exception;
 
     abstract class PDOModel {
-        protected $pdoModel;
         protected $table;
+        protected $pdoModel;
 
         public function __construct($table) {
             // Set up the database source name (DSN)

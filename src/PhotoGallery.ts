@@ -76,9 +76,9 @@ export class PhotoGallery {
     }
 
     private setOnLinkClickRedirect(id: string) {
-        $(id).on('click', () => {
+        $(id).on('click', async () => {
             const itemCreator = new ItemCreator();
-            itemCreator.createPageForItem(id.substr(0, id.indexOf('__'))); // Strip all class id seperators
+            await itemCreator.createPageForItem(id.substr(0, id.indexOf('__'))); // Strip all class id seperators
         });
     }
 
