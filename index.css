@@ -307,7 +307,9 @@ position: relative;
 .mat-elevation-z24 {
     box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12)
 }
-
+#sticky-footer {
+    flex-shrink: 0;
+}
 /*Spinner overlay*/
 #overlay {
     background: #ffffff;
@@ -324,6 +326,18 @@ position: relative;
     opacity: .80;
 }
 
+small {
+    padding-right: 5em;
+}
+.link {
+    cursor:pointer;
+    color:floralwhite;
+    text-decoration:underline;
+}
+.link:hover {
+    text-decoration:none;
+    text-shadow: 1px 1px 1px #555;
+}
 .spinner {
     margin: 0 auto;
     height: 64px;

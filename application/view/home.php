@@ -26,6 +26,9 @@
             <li id="home" class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
+            <li id="about" class="nav-item active">
+                <a class="nav-link" href="#">About (Deeper understanding) <span class="sr-only"></span></a>
+            </li>
             <li class="nav-item dropdown" id="gunDropdown">
 
             </li>
@@ -80,7 +83,14 @@
     </div>
 </main>
 <!--Main layout-->
-
+<footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+    <div class="container text-center">
+       <div class="row">
+          <small>Source code link, 4 models and VRML models can be found at the about page along side some
+              information about the project, please check it out!</small>
+       </div>
+    </div>
+</footer>
 <script src="node_modules/jquery/dist/jquery.min.js"></script>
 <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="node_modules/x3dom/x3dom.js"></script>

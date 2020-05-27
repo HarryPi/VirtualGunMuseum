@@ -33,7 +33,7 @@
             try {
                 return $this->model->getAll(GunModel::class);
             } catch (PDOException $exception) {
-                echo json_encode('We failed to get your data please try again.');
+                return json_encode('We failed to get your data please try again.');
             }
         }
 

@@ -1,3 +1,16 @@
+### Some extra info about the project
+
+#### Cool fact!
+The about page you are viewing is written in markdown! (documentation.md in the root directory). It is rendered into HTML
+by making a call to our PHP endpoints and with some helper functions in the HTML side of things using the same
+MVP pattern as the rest of the application!
+
+You can find the source code for the project at my [GitHub by clicking here!](https://github.com/HarryPi/VirtualGunMuseum)
+
+#### Application flow ( sequence diagram )
+Before diving into the explenation of how this site was made lets look at a simple sequence diagram of what happens when 
+our page is initially loaded to get a good feel of how things work. ( A pictire is 1000 words! )
+![sequence diagram image of the onload operation of our page](__REPLACE_ME_WITH_SEQ_DIAGRAM__)
 ### View (TypeScript)
 Note that all View related code is written in TypeScript a superset of JavaScript.
 The TypeScript Code compiles ( builds ) in pure JavaScript via the webpack framework configured at
@@ -129,9 +142,13 @@ Under this folder exists the database
       ```
     * GunModel.php <br />
     Extends the ```PDOModel``` class and implements gun specific functionality
+    * AboutModel.php
+    Extends the ```PDOModel``` class and implements functionality for the about page
+
 * view <br />
     Only used when the user first reaches the page and if the user navigates to a 404.
     * home.php <br />
     The intial index page that is rendered when the user hits the page. Note that this page is extended dynamically upon
     on load, that is most of the HTML is added afterwards dynamically rather than served statically.
-    
+  
+ 

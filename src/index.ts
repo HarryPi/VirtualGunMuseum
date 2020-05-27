@@ -7,8 +7,7 @@ import {HttpResponseAction} from "./ResponseHelpers/HttpResponseAction";
 import {GunModel} from "./models/DTO/gun.model";
 import {ItemCreator} from "./ItemViews/ItemCreator";
 import {ShowcaseCreator} from "./ItemViews/ShowcaseCreator";
-
-declare var x3dom: any;
+import {Markdown} from "./MarkdownHelper/markdown";
 
 $(bindFunctions);
 
@@ -17,7 +16,39 @@ async function bindFunctions() {
     const htmlCreator = new HTMLCreator();
     const gallery: PhotoGallery = new PhotoGallery();
     const loaderCreator = new LoaderCreator(LoaderKind.GRID);
+    const markdownUtils = new Markdown();
+    const modalId = 'homeModal';
+    const modalContent = 'content'
 
+
+    $('#about').on('click', async () => {
+        console.log('clicked');
+        const markdown = await new UrlLoader()
+            .urlToCall('http://users.sussex.ac.uk/~cp464/VirtualGunMuseum/index.php/about/markdown')
+            .actionOnsuccess(HttpResponseAction.SILENCE_AFTER_ACTION)
+            .blockUIOnCall(true)
+            .actionOnFailure(HttpResponseAction.SHOW_USER_MESSAGE)
+            .callUrlAndParseAsJson<string>();
+        htmlCreator
+            .asNewElement()
+            .createBootstrapRow()
+            .createBootstrapColumn([{colBreakpoint: "xs", colSize: 12}])
+            .injectAtColumn($(`                
+                <div>
+                    <div id="markdownContent"></div>
+                </div>
+            `), 0)
+            .injectCreatedContentAndClear($('#mainContent'));
+
+        $('#markdownContent').html(markdownUtils.convertMarkdownToHTML(markdown));
+
+        // Here we dynamically search for all images in the markdown and ensure they are responsive
+        // by adding img-fluid class of bootstrap
+        $('#markdownContent img').each(function () {
+            console.log($(this));
+            $(this).addClass('img-fluid')
+        })
+    })
 
     $('#home').on('click', async () => {
         htmlCreator
