@@ -7,7 +7,10 @@ MVP pattern as the rest of the application!
 
 #### Housekeeping Links
 You can find the source code for the project at my [GitHub by clicking here!](https://github.com/HarryPi/VirtualGunMuseum)
+
 You can view all the X3D files [here (GitHub)](https://github.com/HarryPi/VirtualGunMuseum/tree/master/application/assets/x3dom/models)
+
+You can find all the models archived in a zip [here (Yes GitHub again)](https://github.com/HarryPi/VirtualGunMuseum/blob/master/arhives.zip)
 
 #### Application flow ( sequence diagram )
 Before diving into the explenation of how this site was made lets look at a simple sequence diagram of what happens when 
@@ -153,4 +156,3 @@ Under this folder exists the database
     The intial index page that is rendered when the user hits the page. Note that this page is extended dynamically upon
     on load, that is most of the HTML is added afterwards dynamically rather than served statically.
   
- 
