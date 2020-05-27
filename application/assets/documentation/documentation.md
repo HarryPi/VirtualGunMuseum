@@ -5,7 +5,9 @@ The about page you are viewing is written in markdown! (documentation.md in the 
 by making a call to our PHP endpoints and with some helper functions in the HTML side of things using the same
 MVP pattern as the rest of the application!
 
+#### Housekeeping Links
 You can find the source code for the project at my [GitHub by clicking here!](https://github.com/HarryPi/VirtualGunMuseum)
+You can view all the X3D files [here (GitHub)](https://github.com/HarryPi/VirtualGunMuseum/tree/master/application/assets/x3dom/models)
 
 #### Application flow ( sequence diagram )
 Before diving into the explenation of how this site was made lets look at a simple sequence diagram of what happens when 
